@@ -1,0 +1,105 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Press Start 2P', cursive;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.form-box {
+  background-color: #111;
+  border: 2px solid #ffcc00;
+  border-radius: 10px;
+  padding: 40px;
+  width: 320px;
+}
+
+.login-form h1 {
+  font-size: 2rem;
+  color: #ffcc00;
+  margin-bottom: 30px;
+}
+
+.field {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.field input {
+  width: 100%;
+  padding: 15px 10px;
+  background-color: #222;
+  color: #fff;
+  border: 2px solid #555;
+  border-radius: 5px;
+  transition: border-color 0.3s, background 0.3s;
+}
+
+.field input:focus {
+  outline: none;
+  border-color: #ffcc00;
+}
+
+.field input:invalid:not(:focus):not(:placeholder-shown) {
+  border-color: #e74c3c;
+  background-color: #330000;
+}
+
+.field input:valid:not(:placeholder-shown) {
+  border-color: #ffcc00;
+  background-color: #332a00;
+}
+
+.field label {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  color: #888;
+  font-size: 0.75rem;
+  transition: all 0.3s;
+  pointer-events: none;
+  background-color: #111;
+  padding: 0 5px;
+}
+
+.field input:focus + label,
+.field input:not(:placeholder-shown) + label {
+  top: -8px;
+  font-size: 0.65rem;
+  color: #ffcc00;
+}
+
+.error-msg {
+  display: none;
+  color: #e74c3c;
+  font-size: 0.65rem;
+  margin-top: 4px;
+}
+
+.field input:invalid:not(:focus):not(:placeholder-shown) ~ .error-msg {
+  display: block;
+}
+
+button {
+  background-color: #ffcc00;
+  color: #000;
+  font-size: 1rem;
+  padding: 12px;
+  width: 100%;
+  border: 2px solid #000;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #e6b800;
+}

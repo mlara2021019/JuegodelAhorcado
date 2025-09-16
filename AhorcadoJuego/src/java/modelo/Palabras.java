@@ -1,33 +1,32 @@
-
 package modelo;
 
 public class Palabras {
-    private int codigoPalabra;  
+    private int codigo_Palabra;  
     private String palabra;
-    private String pista1;
-    private String pista2;
-    private String pista3;
-    
-        public Palabras() {
+    private String pista_1;
+    private String pista_2;
+    private String pista_3;
+
+    // Constructor vacío
+    public Palabras() {
     }
 
-     // Constructor con parámetros
-    public Palabras(int codigoPalabra, String palabra, String pista1, String pista2, String pista3) {
-        this.codigoPalabra = codigoPalabra;
+    // Constructor con parámetros
+    public Palabras(int codigo_Palabra, String palabra, String pista_1, String pista_2, String pista_3) {
+        this.codigo_Palabra = codigo_Palabra;
         this.palabra = palabra;
-        this.pista1 = pista1;
-        this.pista2 = pista2;
-        this.pista3 = pista3;
+        this.pista_1 = pista_1;
+        this.pista_2 = pista_2;
+        this.pista_3 = pista_3;
     }
 
-     // metodos getter y setter
-
-    public int getCodigoPalabra() {
-        return codigoPalabra;
+    // Getters y Setters
+    public int getCodigo_Palabra() {
+        return codigo_Palabra;
     }
 
-    public void setCodigoPalabra(int codigoPalabra) {
-        this.codigoPalabra = codigoPalabra;
+    public void setCodigo_Palabra(int codigo_Palabra) {
+        this.codigo_Palabra = codigo_Palabra;
     }
 
     public String getPalabra() {
@@ -38,42 +37,39 @@ public class Palabras {
         this.palabra = palabra;
     }
 
-    public String getPista1() {
-        return pista1;
+    public String getPista_1() {
+        return pista_1;
     }
 
-    public void setPista1(String pista1) {
-        this.pista1 = pista1;
+    public void setPista_1(String pista_1) {
+        this.pista_1 = pista_1;
     }
 
-    public String getPista2() {
-        return pista2;
+    public String getPista_2() {
+        return pista_2;
     }
 
-    public void setPista2(String pista2) {
-        this.pista2 = pista2;
+    public void setPista_2(String pista_2) {
+        this.pista_2 = pista_2;
     }
 
-    public String getPista3() {
-        return pista3;
+    public String getPista_3() {
+        return pista_3;
     }
 
-    public void setPista3(String pista3) {
-        this.pista3 = pista3;
+    public void setPista_3(String pista_3) {
+        this.pista_3 = pista_3;
     }
-    
-     // Método toString
 
+    // Método toString
     @Override
     public String toString() {
-        return "Palabras{" + "codigoPalabra=" + codigoPalabra +
-                ", palabra=" + palabra +
-                ", pista1=" + pista1 +
-                ", pista2=" + pista2 +
-                ", pista3=" + pista3 + '}';
+        return "Palabras{" +
+                "codigo_Palabra=" + codigo_Palabra +
+                ", palabra='" + palabra + '\'' +
+                ", pista_1='" + pista_1 + '\'' +
+                ", pista_2='" + pista_2 + '\'' +
+                ", pista_3='" + pista_3 + '\'' +
+                '}';
     }
-        
-
 }
-
-

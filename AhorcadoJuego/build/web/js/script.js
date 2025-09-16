@@ -34,7 +34,7 @@ async function iniciarJuego() {
         const palabraData = await respuesta.json();
 
         palabraSecreta = palabraData.palabra.toUpperCase();
-        pistasActuales = [palabraData.pista1, palabraData.pista2, palabraData.pista3];
+        pistasActuales = [palabraData.pista_1, palabraData.pista_2, palabraData.pista_3];
 
         generarPistas(pistasActuales);
         mostrarPalabra();

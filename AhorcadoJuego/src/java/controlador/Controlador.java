@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modelo.Palabras;
 import modelo.PalabrasDAO;
-import modelo.Usuario;
 
 @WebServlet(name = "Controlador", urlPatterns = {"/Controlador"})
 public class Controlador extends HttpServlet {
@@ -18,25 +17,9 @@ public class Controlador extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String menu = request.getParameter("menu");
         String accion = request.getParameter("accion");
 
-        // ✅ Manejo de menú principal después del login
-        if ("MenuPrincipal".equals(menu)) {
-            Usuario usuario = (Usuario) request.getAttribute("usuario");
-
-            if (usuario != null) {
-                // Guardar en sesión para usar en todas las páginas
-                request.getSession().setAttribute("usuario", usuario);
-                request.getRequestDispatcher("MenuPrincipal.jsp").forward(request, response);
-            } else {
-                // Si no viene usuario, vuelve al login
-                request.getRequestDispatcher("index.jsp").forward(request, response);
-            }
-            return;
-        }
-
-        // ✅ Lógica para obtener palabra aleatoria en JSON
+        // Acción para obtener una palabra aleatoria
         if ("obtenerPalabra".equals(accion)) {
             PalabrasDAO dao = new PalabrasDAO();
             Palabras palabra = dao.obtenerPalabraAleatoria();
@@ -53,10 +36,8 @@ public class Controlador extends HttpServlet {
             return;
         }
 
-        // ✅ Si no hay parámetros, redirige al login por defecto
-        if (menu == null && accion == null) {
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-        }
+        // Si no hay ninguna acción, redirige al index.jsp
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 
     @Override

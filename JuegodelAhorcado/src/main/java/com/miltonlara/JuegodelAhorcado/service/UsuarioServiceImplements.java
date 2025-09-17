@@ -1,0 +1,60 @@
+package com.miltonlara.JuegodelAhorcado.service;
+
+import com.miltonlara.JuegodelAhorcado.model.Usuario;
+import com.miltonlara.JuegodelAhorcado.repository.UsuarioRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class UsuarioServiceImplements implements UsuarioService {
+
+    private final UsuarioRepository usuarioRepository;
+
+    public UsuarioServiceImplements(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
+    }
+
+    @Override
+    public List<Usuario> getAllUsuarios() {
+        return usuarioRepository.findAll();
+    }
+
+    @Override
+    public Usuario getUsuarioById(Integer idUsuario) {
+        return usuarioRepository.findById(idUsuario).orElse(null);
+    }
+
+    @Override
+    public Usuario saveUsuario(Usuario usuario) {
+        if (usuarioRepository.existsByUsuario(usuario.getUsuario())) {
+            throw new RuntimeException("El usuario ya existe");
+        }
+        return usuarioRepository.save(usuario);
+    }
+
+    @Override
+    public Usuario updateUsuario(Integer idUsuario, Usuario usuario) {
+        Usuario existingUsuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + idUsuario));
+
+        if (usuarioRepository.existsByUsuarioAndIdUsuarioNot(usuario.getUsuario(), idUsuario)) {
+            throw new RuntimeException("El usuario ya está en uso por otra cuenta");
+        }
+
+        existingUsuario.setUsuario(usuario.getUsuario());
+        existingUsuario.setContrasena(usuario.getContrasena());
+
+        return usuarioRepository.save(existingUsuario);
+    }
+
+    @Override
+    public void deleteUsuario(Integer idUsuario) {
+        if (usuarioRepository.existsById(idUsuario)) {
+            usuarioRepository.deleteById(idUsuario);
+            System.out.println("El usuario se ha eliminado");
+        } else {
+            throw new RuntimeException("El usuario no fue encontrado");
+        }
+    }
+}

@@ -26,8 +26,7 @@ public class UsuarioDAO {
                 usuario = new Usuario();
                 usuario.setCodigo_Usuario(rs.getInt("codigo_Usuario"));
                 usuario.setUsuario(rs.getString("usuario"));
-                // No es necesario devolver la contraseña
-                // usuario.setContrasena(rs.getString("contrasena"));
+
             }
         } catch (Exception e) {
             System.out.println("Error al validar usuario");

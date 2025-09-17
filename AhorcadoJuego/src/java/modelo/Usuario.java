@@ -5,10 +5,9 @@ public class Usuario {
     private String usuario;
     private String contrasena;
 
-    // Constructor vacío
     public Usuario() {}
 
-    // Constructor con parámetros
+    // Constructor 
     public Usuario(int codigo_Usuario, String usuario, String contrasena) {
         this.codigo_Usuario = codigo_Usuario;
         this.usuario = usuario;
@@ -40,7 +39,7 @@ public class Usuario {
         this.contrasena = contrasena;
     }
 
-    // Método toString (sin mostrar contraseña)
+    // Método toString 
     @Override
     public String toString() {
         return "Usuario{" + "codigo_Usuario=" + codigo_Usuario + ", usuario=" + usuario + ", contrasena=****}";

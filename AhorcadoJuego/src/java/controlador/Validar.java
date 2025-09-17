@@ -28,19 +28,17 @@ public class Validar extends HttpServlet {
             Usuario usuario = usuarioDao.validar(user, pass);
 
             if (usuario != null && usuario.getUsuario() != null) {
-                // Guardar usuario en sesión
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", usuario);
 
-                // Redirigir directamente a ahorcado.jsp
+                //manda al ahorcado.jsp
                 request.getRequestDispatcher("ahorcado.jsp").forward(request, response);
             } else {
-                // Credenciales incorrectas
+                // Credenciales que no son buenas
                 request.setAttribute("error", "Usuario o contraseña incorrectos");
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             }
         } else {
-            // Acción inválida, redirige al login
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
@@ -48,7 +46,6 @@ public class Validar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Redirige GET al login
         request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 

@@ -30,7 +30,7 @@
         <div id="teclado" class="teclado"></div>
     </div>
 
-<!-- Modal -->
+    
 <div id="modal" class="modal">
     <div class="modal-content">
         <div id="modal-texto"></div> 

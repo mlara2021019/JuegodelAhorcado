@@ -22,11 +22,14 @@ public class UsuarioServiceImplements implements UsuarioService {
 
     @Override
     public Usuario getUsuarioById(Integer idUsuario) {
-        return usuarioRepository.findById(idUsuario).orElse(null);
+        return usuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + idUsuario));
     }
 
     @Override
     public Usuario saveUsuario(Usuario usuario) {
+        validarUsuario(usuario);
+
         if (usuarioRepository.existsByUsuario(usuario.getUsuario())) {
             throw new RuntimeException("El usuario ya existe");
         }
@@ -35,6 +38,8 @@ public class UsuarioServiceImplements implements UsuarioService {
 
     @Override
     public Usuario updateUsuario(Integer idUsuario, Usuario usuario) {
+        validarUsuario(usuario);
+
         Usuario existingUsuario = usuarioRepository.findById(idUsuario)
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + idUsuario));
 
@@ -50,11 +55,22 @@ public class UsuarioServiceImplements implements UsuarioService {
 
     @Override
     public void deleteUsuario(Integer idUsuario) {
-        if (usuarioRepository.existsById(idUsuario)) {
-            usuarioRepository.deleteById(idUsuario);
-            System.out.println("El usuario se ha eliminado");
-        } else {
-            throw new RuntimeException("El usuario no fue encontrado");
+        if (!usuarioRepository.existsById(idUsuario)) {
+            throw new RuntimeException("El usuario no existe");
+        }
+        usuarioRepository.deleteById(idUsuario);
+    }
+
+    // para que los campos no estenb vacios
+    private void validarUsuario(Usuario usuario) {
+        if (usuario == null) {
+            throw new RuntimeException("El usuario no puede estar vacío");
+        }
+        if (usuario.getUsuario() == null || usuario.getUsuario().trim().isEmpty()) {
+            throw new RuntimeException("El campo 'usuario' no puede estar vacío");
+        }
+        if (usuario.getContrasena() == null || usuario.getContrasena().trim().isEmpty()) {
+            throw new RuntimeException("La contraseña no puede estar vacía");
         }
     }
 }

@@ -1,3 +1,5 @@
+
+
 package com.miltonlara.JuegodelAhorcado.service;
 
 import com.miltonlara.JuegodelAhorcado.model.Palabra;
@@ -22,11 +24,14 @@ public class PalabraServiceImplements implements PalabraService {
 
     @Override
     public Palabra getPalabraById(Integer idPalabra) {
-        return palabraRepository.findById(idPalabra).orElse(null);
+        return palabraRepository.findById(idPalabra)
+                .orElseThrow(() -> new RuntimeException("Palabra no encontrada con ID: " + idPalabra));
     }
 
     @Override
     public Palabra savePalabra(Palabra palabra) {
+        validarPalabraYPistas(palabra);
+
         if (palabraRepository.existsByPalabra(palabra.getPalabra())) {
             throw new RuntimeException("La palabra ya existe en el diccionario");
         }
@@ -35,6 +40,8 @@ public class PalabraServiceImplements implements PalabraService {
 
     @Override
     public Palabra updatePalabra(Integer idPalabra, Palabra palabra) {
+        validarPalabraYPistas(palabra);
+
         Palabra existingPalabra = palabraRepository.findById(idPalabra)
                 .orElseThrow(() -> new RuntimeException("Palabra no encontrada con ID: " + idPalabra));
 
@@ -52,11 +59,28 @@ public class PalabraServiceImplements implements PalabraService {
 
     @Override
     public void deletePalabra(Integer idPalabra) {
-        if (palabraRepository.existsById(idPalabra)) {
-            palabraRepository.deleteById(idPalabra);
-            System.out.println("La palabra se ha eliminado");
-        } else {
-            throw new RuntimeException("La palabra no fue encontrada");
+        if (!palabraRepository.existsById(idPalabra)) {
+            throw new RuntimeException("La palabra no existe");
+        }
+        palabraRepository.deleteById(idPalabra);
+    }
+
+    // Para que las pistas no puedan estar vacias tambien
+    private void validarPalabraYPistas(Palabra palabra) {
+        if (palabra == null) {
+            throw new RuntimeException("La palabra no puede estar vacía");
+        }
+        if (palabra.getPalabra() == null || palabra.getPalabra().trim().isEmpty()) {
+            throw new RuntimeException("El campo 'palabra' no puede estar vacío");
+        }
+        if (palabra.getPistaUno() == null || palabra.getPistaUno().trim().isEmpty()) {
+            throw new RuntimeException("La pista uno no puede estar vacía");
+        }
+        if (palabra.getPistaDos() == null || palabra.getPistaDos().trim().isEmpty()) {
+            throw new RuntimeException("La pista dos no puede estar vacía");
+        }
+        if (palabra.getPistaTres() == null || palabra.getPistaTres().trim().isEmpty()) {
+            throw new RuntimeException("La pista tres no puede estar vacía");
         }
     }
 }

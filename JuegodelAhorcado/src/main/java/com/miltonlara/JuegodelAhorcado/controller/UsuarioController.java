@@ -2,6 +2,8 @@ package com.miltonlara.JuegodelAhorcado.controller;
 
 import com.miltonlara.JuegodelAhorcado.model.Usuario;
 import com.miltonlara.JuegodelAhorcado.service.UsuarioService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,27 +19,52 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public List<Usuario> getAllUsuarios() {
-        return usuarioService.getAllUsuarios();
+    public ResponseEntity<?> getAllUsuarios() {
+        try {
+            List<Usuario> usuarios = usuarioService.getAllUsuarios();
+            return ResponseEntity.ok(usuarios);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @GetMapping("/{id}")
-    public Usuario getUsuarioById(@PathVariable("id") Integer idUsuario) {
-        return usuarioService.getUsuarioById(idUsuario);
+    public ResponseEntity<?> getUsuarioById(@PathVariable("id") Integer idUsuario) {
+        try {
+            Usuario usuario = usuarioService.getUsuarioById(idUsuario);
+            return ResponseEntity.ok(usuario);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     @PostMapping
-    public Usuario createUsuario(@RequestBody Usuario usuario) {
-        return usuarioService.saveUsuario(usuario);
+    public ResponseEntity<?> createUsuario(@RequestBody Usuario usuario) {
+        try {
+            Usuario newUsuario = usuarioService.saveUsuario(usuario);
+            return ResponseEntity.status(HttpStatus.CREATED).body(newUsuario);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
-    public Usuario updateUsuario(@PathVariable("id") Integer idUsuario, @RequestBody Usuario usuario) {
-        return usuarioService.updateUsuario(idUsuario, usuario);
+    public ResponseEntity<?> updateUsuario(@PathVariable("id") Integer idUsuario, @RequestBody Usuario usuario) {
+        try {
+            Usuario updatedUsuario = usuarioService.updateUsuario(idUsuario, usuario);
+            return ResponseEntity.ok(updatedUsuario);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUsuario(@PathVariable("id") Integer idUsuario) {
-        usuarioService.deleteUsuario(idUsuario);
+    public ResponseEntity<?> deleteUsuario(@PathVariable("id") Integer idUsuario) {
+        try {
+            usuarioService.deleteUsuario(idUsuario);
+            return ResponseEntity.ok("Se eliminó correctamente el usuario");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 }

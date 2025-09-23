@@ -13,6 +13,6 @@ public class JuegodelAhorcadoApplication  implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        System.out.println("El api esta funcionado pejeto");
+        System.out.println("El api esta funcionado perfecto");
     }
 }

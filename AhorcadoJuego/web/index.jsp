@@ -12,7 +12,7 @@
             <form class="login-form" action="Validar" method="POST" novalidate>
                 <h1>Login</h1>
 
-                //mensaje de error
+
                 <% if (request.getAttribute("error") != null) {%>
                 <div class="error-box">
                     <%= request.getAttribute("error")%>

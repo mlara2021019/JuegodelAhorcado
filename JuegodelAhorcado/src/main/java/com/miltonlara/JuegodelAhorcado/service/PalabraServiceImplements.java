@@ -65,12 +65,10 @@ public class PalabraServiceImplements implements PalabraService {
         palabraRepository.deleteById(idPalabra);
     }
 
-    // Para que las pistas no puedan estar vacias tambien
+
+    // Para que las pistas no puedan estar vacias
     private void validarPalabraYPistas(Palabra palabra) {
-        if (palabra == null) {
-            throw new RuntimeException("La palabra no puede estar vacía");
-        }
-        if (palabra.getPalabra() == null || palabra.getPalabra().trim().isEmpty()) {
+       if (palabra.getPalabra() == null || palabra.getPalabra().trim().isEmpty()) {
             throw new RuntimeException("El campo 'palabra' no puede estar vacío");
         }
         if (palabra.getPistaUno() == null || palabra.getPistaUno().trim().isEmpty()) {

@@ -11,8 +11,8 @@ import java.sql.SQLException;
         try {
            Class.forName("com.mysql.jdbc.Driver");
            String url = "jdbc:mysql://localhost:3306/db_juego_ahorcado?useSSL=false&allowPublicKeyRetrieval=true";
-           String user = "root";
-           String password = "2021019";
+           String user = "quintom";
+           String password = "admin";
            conexion = (Connection) DriverManager.getConnection(url, user, password);
        } catch (ClassNotFoundException error) {
            StackTraceElement elemento = error.getStackTrace()[0];

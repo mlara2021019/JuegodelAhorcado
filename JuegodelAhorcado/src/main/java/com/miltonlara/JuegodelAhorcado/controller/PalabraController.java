@@ -59,13 +59,14 @@ public class PalabraController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePalabra(@PathVariable("id") Integer idPalabra) {
-        try {
-            palabraService.deletePalabra(idPalabra);
-            return ResponseEntity.ok("Se eliminó correctamente la palabra");
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
-        }
+
+@DeleteMapping("/{id}")
+public ResponseEntity<?> deletePalabra(@PathVariable("id") Integer idPalabra) {
+    try {
+        palabraService.deletePalabra(idPalabra);
+        return ResponseEntity.ok("Se eliminó correctamente la palabra");
+    } catch (RuntimeException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
+}
 }

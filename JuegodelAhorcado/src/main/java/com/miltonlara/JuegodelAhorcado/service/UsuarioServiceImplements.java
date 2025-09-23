@@ -63,9 +63,6 @@ public class UsuarioServiceImplements implements UsuarioService {
 
     // para que los campos no estenb vacios
     private void validarUsuario(Usuario usuario) {
-        if (usuario == null) {
-            throw new RuntimeException("El usuario no puede estar vacío");
-        }
         if (usuario.getUsuario() == null || usuario.getUsuario().trim().isEmpty()) {
             throw new RuntimeException("El campo 'usuario' no puede estar vacío");
         }
